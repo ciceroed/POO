@@ -1,35 +1,60 @@
-#include "mainwindow.h"
+#include <iostream>
+#include <vector>
 
-#include <string>
-
-#include <QApplication>
+#include "card.h"
+#include "damagecard.h"
+#include "deck.h"
 
 using namespace std;
 
-class Card{
-private:
-    int _manaCost;
-    string _title;
-    string _description;
-public:
-};
-
-class Deck{
-private:
-    vector<Card*> _cards;
-public:
-};
-
-class Character{
-private:
-    int _healthPoints;
-    int _mana;
-    Deck _deck;
-public:
-    Character(int hp = 50, int mana = 10): _healthPoints(hp), _mana(mana){}
-};
-
 int main()
 {
-    Character player;
+    DamageCard Fireball(4,
+                    "Bola de Fogo",
+                    "Conjura uma bola de fogo que queima os inimigos",
+                    40);
+    DamageCard Icebolt(3,
+                    "Seta de Gelo",
+                    "Conjura uma seta de gelo que congela os inimigos",
+                    15);
+    DamageCard MagicMissile(5,
+                       "Misseis Mágicos",
+                       "Conjura misseis mágicos que atingem os inimigos",
+                       5);
+
+    cout << "Custo de Mana: " << Fireball.getManaCost() << endl;
+    cout << "Título: " << Fireball.getTitle() << endl;
+    cout << "Descrição: " << Fireball.getDescription() << endl;
+
+    Fireball.cardEffect();
+
+    vector <Card *> d = {&Fireball, &Icebolt};
+
+    Deck deck(d);
+
+    deck.printDeck();
+
+    cout << "Add card" << endl;
+    deck.addCard(&MagicMissile);
+
+    deck.printDeck();
+
+    cout << "Remove card" << endl;
+    deck.removeCard(&MagicMissile);
+
+    deck.printDeck();
+/*
+    Card* buyCard = deck.buyCard();
+
+    buyCard->cardEffect();
+
+    deck.printDeck();
+
+    buyCard = deck.buyCard();
+
+    buyCard->cardEffect();
+
+    deck.printDeck();
+
+    buyCard = deck.buyCard(); */
 }

@@ -52,9 +52,17 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../../main.cpp \
+SOURCES       = ../../card.cpp \
+		../../character.cpp \
+		../../damagecard.cpp \
+		../../deck.cpp \
+		../../main.cpp \
 		../../mainwindow.cpp moc_mainwindow.cpp
-OBJECTS       = main.o \
+OBJECTS       = card.o \
+		character.o \
+		damagecard.o \
+		deck.o \
+		main.o \
 		mainwindow.o \
 		moc_mainwindow.o
 DIST          = /home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/spec_pre.prf \
@@ -272,6 +280,7 @@ DIST          = /home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/qt_config.prf \
 		/home/cicero/Qt/6.9.0/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/spec_post.prf \
+		../../.qmake.stash \
 		/home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/toolchain.prf \
 		/home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/default_pre.prf \
@@ -293,7 +302,15 @@ DIST          = /home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/exceptions.prf \
 		/home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/yacc.prf \
 		/home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/lex.prf \
-		../../../../code.pro ../../mainwindow.h ../../main.cpp \
+		../../../../code.pro ../../card.h \
+		../../character.h \
+		../../damagecard.h \
+		../../deck.h \
+		../../mainwindow.h ../../card.cpp \
+		../../character.cpp \
+		../../damagecard.cpp \
+		../../deck.cpp \
+		../../main.cpp \
 		../../mainwindow.cpp
 QMAKE_TARGET  = code
 DESTDIR       = 
@@ -521,6 +538,7 @@ Makefile: ../../code.pro /home/cicero/Qt/6.9.0/gcc_64/mkspecs/linux-g++/qmake.co
 		/home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/qt_config.prf \
 		/home/cicero/Qt/6.9.0/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/toolchain.prf \
 		/home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/default_pre.prf \
@@ -762,6 +780,7 @@ Makefile: ../../code.pro /home/cicero/Qt/6.9.0/gcc_64/mkspecs/linux-g++/qmake.co
 /home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/qt_config.prf:
 /home/cicero/Qt/6.9.0/gcc_64/mkspecs/linux-g++/qmake.conf:
 /home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/exclusive_builds.prf:
 /home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/toolchain.prf:
 /home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/default_pre.prf:
@@ -802,8 +821,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../main.cpp ../../mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../card.h ../../character.h ../../damagecard.h ../../deck.h ../../mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../card.cpp ../../character.cpp ../../damagecard.cpp ../../deck.cpp ../../main.cpp ../../mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../mainwindow.ui $(DISTDIR)/
 
 
@@ -1063,207 +1082,22 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-main.o: ../../main.cpp ../../mainwindow.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/QMainWindow \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/qmainwindow.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qtguiglobal.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qglobal.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtcoreglobal.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtversionchecks.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtconfiginclude.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qconfig.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtcore-config.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtconfigmacros.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtdeprecationdefinitions.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qcompilerdetection.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qprocessordetection.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qsystemdetection.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtcoreexports.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtdeprecationmarkers.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtclasshelpermacros.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtpreprocessorsupport.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qassert.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtnoop.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtypes.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtversion.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtypeinfo.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qcontainerfwd.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qsysinfo.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qlogging.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qflags.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qcompare_impl.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qatomic.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qbasicatomic.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qatomic_cxx11.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qgenericatomic.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qyieldcpu.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qconstructormacros.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qdarwinhelpers.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qexceptionhandling.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qforeach.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qttypetraits.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qfunctionpointer.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qglobalstatic.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qmalloc.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qminmax.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qnumeric.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qoverload.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qswap.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtenvironmentvariables.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtresource.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qttranslation.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qversiontagging.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qtgui-config.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qtguiexports.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/qtwidgets-config.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/qtwidgetsexports.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/qwidget.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qwindowdefs.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qobjectdefs.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qnamespace.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qcompare.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qstdlibdetection.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qcomparehelpers.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/q20type_traits.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtmetamacros.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qobjectdefs_impl.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qfunctionaltools_impl.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qobject.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qstring.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qchar.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qstringview.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qbytearray.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qrefcount.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qarraydata.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qpair.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qarraydatapointer.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qarraydataops.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qcontainertools_impl.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qxptype_traits.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/q20functional.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/q20memory.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/q17memory.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qbytearrayalgorithms.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qbytearrayview.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qstringfwd.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qstringliteral.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qstringalgorithms.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qlatin1stringview.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qanystringview.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qutf8stringview.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qstringtokenizer.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qstringbuilder.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qstringconverter.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qstringconverter_base.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qlist.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qhashfunctions.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qiterator.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qbytearraylist.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qstringlist.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qalgorithms.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qstringmatcher.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qcoreevent.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qbasictimer.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qabstracteventdispatcher.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qeventloop.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qdeadlinetimer.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qelapsedtimer.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qmetatype.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qdatastream.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qscopedpointer.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qiodevicebase.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qfloat16.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qmath.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtformat_impl.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qiterable.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qmetacontainer.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qcontainerinfo.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtaggedpointer.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qscopeguard.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qobject_impl.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qbindingstorage.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qmargins.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/q23utility.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/q20utility.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qaction.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qkeysequence.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qicon.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qsize.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qpixmap.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qpaintdevice.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qrect.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qpoint.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qcolor.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qrgb.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qrgba64.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qshareddata.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qimage.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qpixelformat.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qtransform.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qpolygon.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qregion.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qspan.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/q20iterator.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qline.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qvariant.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qdebug.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtextstream.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qcontiguouscache.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qsharedpointer.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qsharedpointer_impl.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qmap.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qshareddata_impl.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qset.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qhash.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qvarlengtharray.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qpalette.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qbrush.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qfont.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qendian.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qfontmetrics.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qfontinfo.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qfontvariableaxis.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/qsizepolicy.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qcursor.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qbitmap.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qevent.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qiodevice.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qurl.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qeventpoint.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qvector2d.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qvectornd.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qpointingdevice.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qinputdevice.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qscreen.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/QList \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/QObject \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/QRect \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/QSize \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/QSizeF \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/QTransform \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qnativeinterface.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qscreen_platform.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qguiapplication.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qcoreapplication.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qcoreapplication_platform.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qfuture.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qfutureinterface.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qmutex.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qtsan_impl.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qresultstore.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qfuture_impl.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qthreadpool.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qthread.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qrunnable.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qexception.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qpromise.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qinputmethod.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qlocale.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qguiapplication_platform.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/qtabwidget.h \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/QApplication \
-		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/qapplication.h
+card.o: ../../card.cpp ../../card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o card.o ../../card.cpp
+
+character.o: ../../character.cpp ../../character.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o character.o ../../character.cpp
+
+damagecard.o: ../../damagecard.cpp ../../damagecard.h \
+		../../card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o damagecard.o ../../damagecard.cpp
+
+deck.o: ../../deck.cpp ../../deck.h \
+		../../card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o deck.o ../../deck.cpp
+
+main.o: ../../main.cpp ../../card.h \
+		../../damagecard.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../main.cpp
 
 mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
@@ -1465,7 +1299,16 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/qlocale.h \
 		/home/cicero/Qt/6.9.0/gcc_64/include/QtGui/qguiapplication_platform.h \
 		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/qtabwidget.h \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		/home/cicero/Qt/6.9.0/gcc_64/include/QtCore/QVariant \
+		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/QApplication \
+		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/qapplication.h \
+		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/QMenuBar \
+		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/qmenubar.h \
+		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/qmenu.h \
+		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/QStatusBar \
+		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/qstatusbar.h \
+		/home/cicero/Qt/6.9.0/gcc_64/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../mainwindow.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 

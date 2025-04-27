@@ -1,0 +1,57 @@
+@startuml class-diagram
+
+skinparam ClassAttributeIconSize 0
+
+' Classes principais
+
+class Game{
+    - player: Character
+    - mobs: vector<Character>
+    + gameStart()
+}
+
+class Character {
+    - healthPoints: int
+    - mana: int
+    - deck: Deck
+    + setHealthPoints(int hp): void
+    + setMana(int mana): void
+    + getHealthPoints(): int
+    + getMana(): int
+}
+
+class Card{
+    - manaCost: int
+    - title: string
+    - description: string
+    + getManaCost(): int
+    + getDescription(): string
+    + getTitle(): string
+    + cardEffect(Character target): void {abstract}
+}
+
+class DamageCard{
+    - damage: int
+    + cardEffect(Character target): void
+}
+class DefenseCard{
+    - shield: int
+    + cardEffect(Character target): void
+}
+class Deck{
+    - cards: vector<Card*>
+    + buyCard(): Card*
+    + addCard(Card*): void
+    + removeCard(Card*): void
+    + shuffle(): void
+}
+
+
+' Relacionamentos
+Game "1" -- "1" Character : controls >
+Game "1" -- "*" Character: fight against >
+Character -- Deck : Owns >
+Deck o-- "*" Card : Manage >
+Card <|-- DamageCard
+Card <|-- DefenseCard
+@enduml
