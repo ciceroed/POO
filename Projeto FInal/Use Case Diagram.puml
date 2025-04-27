@@ -1,0 +1,7 @@
+@startuml Use-Case
+
+skinparam actorStyle awesome
+
+:Player:->(Play)
+
+@enduml
