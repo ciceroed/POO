@@ -8,15 +8,17 @@ A ideia inicial é criar um jogo de cartas com elementos de RPG, com ações bas
 A intenção é que o desenvolvimento do projeto possibilite a exploração abrangente das ferramentas disponibilizadas pela linguagem C++ e pelo paradigma de programação orientado a objetos.
 
 #### Requisitos funcionais:
-    - Manipular um deck de cartas permitindo ações de compra, adição, remoção e embaralhamento das cartas.
-    - Criar inimigos de forma aleatória de acordo com a progressão.
+- Manipular um deck de cartas permitindo ações de compra, adição, remoção e embaralhamento das cartas.
+- Criar inimigos de forma aleatória de acordo com a progressão.
 
 ## Diagrama de Casos de Uso
 
-O projeto inicial possui como ator o **jogador** e como única funcionalidade a ação de **jogar.**
+<img src="img/use-case-diagram.png">
 
-<img src="img/use-case.png">
- 
+- **Caso de Uso 1:** [Start]()
+- **Caso de Uso 2:** [Play turn]()
+- **Caso de Uso 3:** [Use card]()
+
 ## Diagrama de Domínio do problema
 
 Elaborar um diagrama conceitual do domínio do problema.

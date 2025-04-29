@@ -13,6 +13,7 @@ SOURCES += \
     character.cpp \
     damagecard.cpp \
     deck.cpp \
+    defensecard.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -21,6 +22,7 @@ HEADERS += \
     character.h \
     damagecard.h \
     deck.h \
+    defensecard.h \
     mainwindow.h
 
 FORMS += \

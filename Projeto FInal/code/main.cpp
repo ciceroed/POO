@@ -4,6 +4,8 @@
 #include "card.h"
 #include "damagecard.h"
 #include "deck.h"
+#include "defensecard.h"
+#include "character.h"
 
 using namespace std;
 
@@ -22,13 +24,18 @@ int main()
                        "Conjura misseis mágicos que atingem os inimigos",
                        5);
 
-    cout << "Custo de Mana: " << Fireball.getManaCost() << endl;
-    cout << "Título: " << Fireball.getTitle() << endl;
-    cout << "Descrição: " << Fireball.getDescription() << endl;
+    DefenseCard Shield(3,
+                       "Escudo",
+                       "Concede escudo ao usuário",
+                       10);
 
-    Fireball.cardEffect();
+    cout << "Custo de Mana: " << Shield.getManaCost() << endl;
+    cout << "Título: " << Shield.getTitle() << endl;
+    cout << "Descrição: " << Shield.getDescription() << endl;
 
-    vector <Card *> d = {&Fireball, &Icebolt};
+    Shield.cardEffect();
+
+    vector <Card *> d = {&Fireball, &Icebolt, &Shield};
 
     Deck deck(d);
 

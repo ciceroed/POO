@@ -56,12 +56,14 @@ SOURCES       = ../../card.cpp \
 		../../character.cpp \
 		../../damagecard.cpp \
 		../../deck.cpp \
+		../../defensecard.cpp \
 		../../main.cpp \
 		../../mainwindow.cpp moc_mainwindow.cpp
 OBJECTS       = card.o \
 		character.o \
 		damagecard.o \
 		deck.o \
+		defensecard.o \
 		main.o \
 		mainwindow.o \
 		moc_mainwindow.o
@@ -306,10 +308,12 @@ DIST          = /home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/spec_pre.prf \
 		../../character.h \
 		../../damagecard.h \
 		../../deck.h \
+		../../defensecard.h \
 		../../mainwindow.h ../../card.cpp \
 		../../character.cpp \
 		../../damagecard.cpp \
 		../../deck.cpp \
+		../../defensecard.cpp \
 		../../main.cpp \
 		../../mainwindow.cpp
 QMAKE_TARGET  = code
@@ -821,8 +825,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /home/cicero/Qt/6.9.0/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../card.h ../../character.h ../../damagecard.h ../../deck.h ../../mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../card.cpp ../../character.cpp ../../damagecard.cpp ../../deck.cpp ../../main.cpp ../../mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../card.h ../../character.h ../../damagecard.h ../../deck.h ../../defensecard.h ../../mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../card.cpp ../../character.cpp ../../damagecard.cpp ../../deck.cpp ../../defensecard.cpp ../../main.cpp ../../mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../mainwindow.ui $(DISTDIR)/
 
 
@@ -1096,8 +1100,13 @@ deck.o: ../../deck.cpp ../../deck.h \
 		../../card.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o deck.o ../../deck.cpp
 
+defensecard.o: ../../defensecard.cpp ../../defensecard.h \
+		../../card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o defensecard.o ../../defensecard.cpp
+
 main.o: ../../main.cpp ../../card.h \
-		../../damagecard.h
+		../../damagecard.h \
+		../../deck.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../main.cpp
 
 mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \

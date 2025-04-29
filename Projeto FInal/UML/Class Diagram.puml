@@ -11,11 +11,12 @@ class Game{
 }
 
 class Character {
-    - healthPoints: int
+    - health: int
     - mana: int
     - deck: Deck
-    + setHealthPoints(int hp): void
-    + setMana(int mana): void
+    - hand: vector<Card*>
+    + setHealth(hp: int): void
+    + setMana(mana: int): void
     + getHealthPoints(): int
     + getMana(): int
 }
@@ -27,22 +28,22 @@ class Card{
     + getManaCost(): int
     + getDescription(): string
     + getTitle(): string
-    + cardEffect(Character target): void {abstract}
+    + cardEffect(target: Character): void {abstract}
 }
 
 class DamageCard{
     - damage: int
-    + cardEffect(Character target): void
+    + cardEffect(target: Character): void
 }
 class DefenseCard{
     - shield: int
-    + cardEffect(Character target): void
+    + cardEffect(target: Character): void
 }
 class Deck{
     - cards: vector<Card*>
     + buyCard(): Card*
-    + addCard(Card*): void
-    + removeCard(Card*): void
+    + addCard(card: Card*): void
+    + removeCard(card: Card*): void
     + shuffle(): void
 }
 

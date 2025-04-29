@@ -1,19 +1,21 @@
 @startuml usecase-diagram
 
 skinparam actorStyle awesome
+left to right direction
 
 actor Player
 
+' Sistema
 rectangle Game {
+    ' Casos de uso
     usecase "Start Game" as UC1
     usecase "Play Turn" as UC2
     usecase "Use Card" as UC3
-    usecase "End Turn" as UC4
 }
 
-Player --> UC1
-Player --> UC2
-Player --> UC3
-Player --> UC4
+' Relacionamentos
+:Player: -- (UC1)
+:Player: -- (UC2)
+(UC2) <. (UC3) : extend
 
 @enduml
