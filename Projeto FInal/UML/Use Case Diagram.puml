@@ -16,6 +16,6 @@ rectangle Game {
 ' Relacionamentos
 :Player: -- (UC1)
 :Player: -- (UC2)
-(UC2) <. (UC3) : extend
+(UC2) <. (UC3) : <<include>>
 
 @enduml

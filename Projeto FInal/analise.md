@@ -15,14 +15,15 @@ A intenção é que o desenvolvimento do projeto possibilite a exploração abra
 
 <img src="img/use-case-diagram.png">
 
-- **Caso de Uso 1:** [Start]()
-- **Caso de Uso 2:** [Play turn]()
-- **Caso de Uso 3:** [Use card]()
+- **Caso de Uso 1:** [Start Game](./UML/Caso%20de%20Uso%201.md)
+- **Caso de Uso 2:** [Play turn](./UML/Caso%20de%20Uso%202.md)
+- **Caso de Uso 3:** [Use card](./UML/Caso%20de%20Uso%203.md)
 
-## Diagrama de Domínio do problema
+## Diagrama de Domínio do Problema
 
-Elaborar um diagrama conceitual do domínio do problema.
+Os principais elementos presentes no problema estão apresentados no diagrama, o jogador é o ator principal, usuário do sistema desenvolvido. Ele precisa de um personagem jogável e um baralho de cartas. Os inimigos são o elemento principal dos desafios que o jogador enfrentará.
 
+<img src="img/problem-domain-diagram.png">
 
 <div align="center">
 
