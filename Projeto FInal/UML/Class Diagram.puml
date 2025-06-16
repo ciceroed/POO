@@ -8,51 +8,69 @@ class Game{
     - player: Character
     - mobs: vector<Character>
     + gameStart()
+    + endTurn()
 }
 
 class Character {
+    - name: string
     - health: int
     - mana: int
     - deck: Deck
     - hand: vector<Card*>
     + setHealth(hp: int): void
     + setMana(mana: int): void
-    + getHealthPoints(): int
+    + getHealth(): int
     + getMana(): int
+}
+
+
+class Deck{
+    - cards: vector<Card*>
+
+    + draw(): Card*
+    + addCard(card: Card*): void
+    + removeCard(card: Card*): void
+    + shuffle(): void
 }
 
 class Card{
     - manaCost: int
     - title: string
     - description: string
+    - effect: ICardEffect *
+
     + getManaCost(): int
+    + setManaCost(cost: int): void
     + getDescription(): string
+    + setDescription(description: string): void
     + getTitle(): string
-    + cardEffect(target: Character): void {abstract}
+    + setTitle(title: string): void
+    + setEffect(effect: ICardEffect): void
+    + applyEffect(source: Character*, target: Character*): void
 }
 
-class DamageCard{
-    - damage: int
-    + cardEffect(target: Character): void
-}
-class DefenseCard{
-    - shield: int
-    + cardEffect(target: Character): void
-}
-class Deck{
-    - cards: vector<Card*>
-    + buyCard(): Card*
-    + addCard(card: Card*): void
-    + removeCard(card: Card*): void
-    + shuffle(): void
+' Interfaces e classes de efeitos de cartas
+
+interface ICardEffect <<Strategy>> {
+    + applyEffect(source: Character*, target: Character*): void
 }
 
+class AttackEffect{
+    - damageAmount: int
+    + applyEffect(source: Character* , target: Character*): void
+}
+
+class HealEffect {
+    - healAmount: int
+    + applyEffect(source: Character* , target: Character*): void
+}
 
 ' Relacionamentos
 Game "1" -- "1" Character : controls >
 Game "1" -- "*" Character: fight against >
 Character -- Deck : Owns >
 Deck o-- "*" Card : Manage >
-Card <|-- DamageCard
-Card <|-- DefenseCard
+Card --> ICardEffect : uses >
+AttackEffect ..|> ICardEffect
+HealEffect ..|> ICardEffect
 @enduml

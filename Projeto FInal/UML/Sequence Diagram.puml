@@ -1,0 +1,63 @@
+@startuml sequence-diagram-uc2
+
+title Sequence Diagram for Combat
+
+skinparam actorStyle awesome
+
+actor Player
+participant Game
+participant PlayerCharacter
+participant PlayerDeck
+participant Card
+participant CardEffect
+participant MobCharacter
+
+activate Game
+activate Player
+activate PlayerCharacter
+activate Card
+activate PlayerDeck
+activate MobCharacter
+activate CardEffect
+activate MobDeck
+
+Game -> PlayerCharacter : Restore mana
+PlayerCharacter -> PlayerDeck : Draw card
+PlayerDeck -> PlayerCharacter : Return card
+PlayerCharacter -> Game : Return hand
+Game -> Player : Initiate turn (Show hand)
+
+alt activate card
+    Player -> Game : Select card
+    Game -> Player : Ask for target
+    Player -> Game : Select target
+    Game -> PlayerCharacter : Subtract mana
+    Game -> Card : Activate card
+    Card -> CardEffect : Activate effect
+
+    alt target is a MobCharacter
+        CardEffect -> MobCharacter : Apply effect
+    else target is a PlayerCharacter
+        CardEffect -> PlayerCharacter : Apply effect
+    end
+else end turn
+    Player -> Game : End turn
+
+end
+
+Game -> MobCharacter : Restore mana
+MobCharacter -> MobDeck: Draw card
+MobDeck -> MobCharacter : Return card
+MobCharacter -> Game : Select card
+Game -> MobCharacter : Ask for target
+MobCharacter -> Game : Select target
+Game -> MobCharacter : Subtract mana
+Game -> Card : Activate card
+Card -> CardEffect : Activate effect
+alt target is a MobCharacter
+    CardEffect -> MobCharacter : Apply effect
+else target is a PlayerCharacter
+    CardEffect -> PlayerCharacter : Apply effect
+end
+MobCharacter -> Game : End turn
+@enduml
