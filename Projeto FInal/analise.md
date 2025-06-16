@@ -13,7 +13,7 @@ A intenção é que o desenvolvimento do projeto possibilite a exploração abra
 
 ## Diagrama de Casos de Uso
 
-<img src="img/use-case-diagram.png">
+<img src="img/use-case-diagram.png" height="500px">
 
 - **Caso de Uso 1:** [Start Game](./UML/Caso%20de%20Uso%201.md)
 - **Caso de Uso 2:** [Play turn](./UML/Caso%20de%20Uso%202.md)
@@ -23,7 +23,7 @@ A intenção é que o desenvolvimento do projeto possibilite a exploração abra
 
 Os principais elementos presentes no problema estão apresentados no diagrama, o jogador é o ator principal, usuário do sistema desenvolvido. Ele precisa de um personagem jogável e um baralho de cartas. Os inimigos são o elemento principal dos desafios que o jogador enfrentará.
 
-<img src="img/problem-domain-diagram.png">
+<img src="img/problem-domain-diagram.png" height="500px">
 
 <div align="center">
 
