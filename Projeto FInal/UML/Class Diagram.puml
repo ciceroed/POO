@@ -21,6 +21,10 @@ class Character {
     + setMana(mana: int): void
     + getHealth(): int
     + getMana(): int
+    + getHand(): vector<Card*>
+    + drawCard(): void
+    + setInitialHand(): void
+    + playCard(card: Card*, target: Character*): void
 }
 
 

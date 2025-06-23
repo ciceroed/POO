@@ -12,52 +12,73 @@ participant Card
 participant CardEffect
 participant MobCharacter
 
-activate Game
-activate Player
-activate PlayerCharacter
-activate Card
-activate PlayerDeck
-activate MobCharacter
-activate CardEffect
-activate MobDeck
-
 Game -> PlayerCharacter : Restore mana
+activate Game
+activate PlayerCharacter
 PlayerCharacter -> PlayerDeck : Draw card
+activate PlayerDeck
 PlayerDeck -> PlayerCharacter : Return card
+deactivate PlayerDeck
 PlayerCharacter -> Game : Return hand
+deactivate PlayerCharacter
 Game -> Player : Initiate turn (Show hand)
+deactivate Game
+activate Player
+
 
 alt activate card
     Player -> Game : Select card
+    activate Game
     Game -> Player : Ask for target
     Player -> Game : Select target
     Game -> PlayerCharacter : Subtract mana
+    activate PlayerCharacter
+    deactivate PlayerCharacter
     Game -> Card : Activate card
+    activate Card
     Card -> CardEffect : Activate effect
+    activate CardEffect
 
     alt target is a MobCharacter
         CardEffect -> MobCharacter : Apply effect
+        activate MobCharacter
+        deactivate MobCharacter
     else target is a PlayerCharacter
         CardEffect -> PlayerCharacter : Apply effect
+        activate PlayerCharacter
+        deactivate PlayerCharacter
+        deactivate CardEffect
     end
+    deactivate Card
 else end turn
     Player -> Game : End turn
-
+    deactivate Player
 end
 
 Game -> MobCharacter : Restore mana
+activate MobCharacter
 MobCharacter -> MobDeck: Draw card
+activate MobDeck
 MobDeck -> MobCharacter : Return card
+deactivate MobDeck
 MobCharacter -> Game : Select card
 Game -> MobCharacter : Ask for target
 MobCharacter -> Game : Select target
 Game -> MobCharacter : Subtract mana
 Game -> Card : Activate card
+activate Card
 Card -> CardEffect : Activate effect
+activate CardEffect
 alt target is a MobCharacter
     CardEffect -> MobCharacter : Apply effect
 else target is a PlayerCharacter
     CardEffect -> PlayerCharacter : Apply effect
+    activate PlayerCharacter
+    deactivate PlayerCharacter
+    deactivate CardEffect
+    deactivate Card
 end
 MobCharacter -> Game : End turn
+deactivate MobCharacter
+deactivate Game
 @enduml
