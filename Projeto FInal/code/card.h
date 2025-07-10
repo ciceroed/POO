@@ -2,32 +2,39 @@
 #define CARD_H
 
 #include <string>
+#include <memory>
 
-using namespace std;
+#include "icardeffect.h"
+
+class Character;
 
 class Card
 {
 private:
     int _manaCost;
-    string _title;
-    string _description;
+    std::string _title;
+    std::string _description;
+    std::unique_ptr<ICardEffect> _effect;
 
 public:
-    Card(int manaCost, string title, string description):
+    Card(int manaCost, std::string title, std::string description, std::unique_ptr<ICardEffect> effect):
         _manaCost(manaCost),
         _title(title),
-        _description(description){}
+        _description(description),
+        _effect(std::move(effect)){}
 
     int getManaCost(){
         return _manaCost;
     }
-    string getDescription(){
+    std::string getDescription(){
         return _description;
     }
-    string getTitle(){
+    std::string getTitle(){
         return _title;
     }
-    virtual void cardEffect() = 0;
+    void cardEffect(Character& source, Character& target){
+        _effect->applyEffect(source, target);
+    }
 };
 
 #endif // CARD_H

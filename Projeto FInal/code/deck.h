@@ -5,21 +5,19 @@
 
 #include "card.h"
 
-using namespace std;
-
 class Deck
 {
 private:
-    vector<Card *> _cards;
+    std::vector<std::unique_ptr<Card>> _cards;
 
 public:
-    Deck(vector<Card *> cards): _cards(cards){}
+    Deck(){}
+    Deck(std::vector<std::unique_ptr<Card>> cards): _cards(std::move(cards)){}
 
-    Card* buyCard();
+    std::unique_ptr<Card> draw();
     void shuffle();
-    void addCard(Card* card);
-    void removeCard(Card* card);
-    void printDeck();
+    void addCard(std::unique_ptr<Card> card);
+    void removeCard(std::unique_ptr<Card> card);
 };
 
 #endif // DECK_H

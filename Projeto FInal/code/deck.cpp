@@ -5,12 +5,14 @@
 
 #include "deck.h"
 
-Card* Deck::buyCard(){
+using namespace std;
+
+std::unique_ptr<Card> Deck::draw(){
     if(_cards.empty()){
-        cout << "Deck está vazio!" << endl;
+        cerr << "Deck está vazio!" << endl;
         return nullptr;
     }
-    Card* tmp = _cards.back();
+    std::unique_ptr<Card> tmp = std::move(_cards.back());
     _cards.pop_back();
     return tmp;
 }
@@ -21,21 +23,15 @@ void Deck::shuffle(){
     std::shuffle(_cards.begin(), _cards.end(), g);
 }
 
-void Deck::addCard(Card* card){
-    _cards.push_back(card);
+void Deck::addCard(std::unique_ptr<Card> card){
+    _cards.push_back(std::move(card));
 }
 
-void Deck::removeCard(Card* card){
+void Deck::removeCard(std::unique_ptr<Card> card){
     auto it = find(_cards.begin(), _cards.end(), card);
     if (it != _cards.end()) {
         _cards.erase(it);
     } else {
-        cout << "Carta não encontrada no deck!" << endl;
-    }
-}
-
-void Deck::printDeck(){
-    for(int i=0; i < (int)_cards.size(); i++){
-        cout << _cards[i]->getTitle() << endl;
+        cerr << "Carta não encontrada no deck!" << endl;
     }
 }

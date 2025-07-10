@@ -3,14 +3,11 @@
 
 #include <QMainWindow>
 
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
-}
-QT_END_NAMESPACE
+class Game;
+class QGraphicsScene;
+class QGraphicsView;
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
@@ -18,6 +15,12 @@ public:
     ~MainWindow();
 
 private:
-    Ui::MainWindow *ui;
+    QGraphicsView* _view;
+    QGraphicsScene* _scene;
+    // Game _game;
+
+    // void setupUI();
+    // void syncSceneWithGameState();
 };
+
 #endif // MAINWINDOW_H

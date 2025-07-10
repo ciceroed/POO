@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/cards/bola-de-fogo.png</file>
+        <file>images/cards/esgrima-goblin.png</file>
+        <file>images/characters/character-goblin.png</file>
+        <file>images/characters/character-wizard.png</file>
+    </qresource>
+</RCC>
