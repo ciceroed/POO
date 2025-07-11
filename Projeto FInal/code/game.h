@@ -3,7 +3,9 @@
 
 #include <vector>
 
+#include "viewdata.h"
 #include "character.h"
+
 
 class Game
 {
@@ -13,12 +15,7 @@ class Game
 public:
     Game();
 
-    int getPlayerHealth();
-    int getPlayerMana();
-    int getMobHealth();
-    int getMobMana();
-
-    bool canPlayCard();
+    CharacterViewData getPlayerViewData();
 
 };
 

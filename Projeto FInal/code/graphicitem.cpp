@@ -1,10 +1,10 @@
-#include "carditem.h"
+#include "graphicitem.h"
 
 #include <QPainter>
 #include <QGraphicsSceneHoverEvent>
 #include <QDebug>
 
-CardItem::CardItem(const QString& resourcePath, QGraphicsItem* parent)
+GraphicItem::GraphicItem(const QString& resourcePath, QGraphicsItem* parent)
     : QGraphicsObject(parent), _isHovered(false) {
 
     if(!_pixmap.load(resourcePath)){
@@ -13,11 +13,11 @@ CardItem::CardItem(const QString& resourcePath, QGraphicsItem* parent)
     setAcceptHoverEvents(true);
 }
 
-QRectF CardItem::boundingRect() const{
+QRectF GraphicItem::boundingRect() const{
     return _pixmap.rect();
 }
 
-void CardItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+void GraphicItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
 
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -25,29 +25,23 @@ void CardItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     painter->drawPixmap(0, 0, _pixmap);
 
     if(_isHovered){
-        painter->setBrush((QColor(255, 255, 0, 80)));
+        painter->setBrush((QColor(255, 255, 0, 70)));
         painter->setPen(Qt::NoPen);
         painter->drawRect(boundingRect());
     }
 }
 
-void CardItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
+void GraphicItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
 
     _isHovered = true;
     update();
     QGraphicsObject::hoverEnterEvent(event);
 }
 
-void CardItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
+void GraphicItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
 
     _isHovered = false;
     update();
     QGraphicsObject::hoverLeaveEvent(event);
 }
 
-void CardItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
-
-    // Aqui você emitiria um sinal para a MainWindow saber que esta carta foi clicada
-    // emit cardClicked(this);
-    QGraphicsObject::mousePressEvent(event);
-}

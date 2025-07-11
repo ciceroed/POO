@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <QString>
 
 #include "card.h"
 #include "deck.h"
@@ -18,14 +19,15 @@ private:
     int _maxHealth;
     int _mana;
     int _maxMana;
+    QString _spritePath;
     Hand _hand;
     std::unique_ptr<Deck> _deck; // Public atribute
 public:
 
 
 
-    Character(std::string name, int health, int mana):
-        _name(name), _health(health), _maxHealth(health), _mana(mana), _maxMana(mana), _deck(std::make_unique<Deck>()){}
+    Character(std::string name, int health, int mana, QString spritePath):
+        _name(name), _health(health), _maxHealth(health), _mana(mana), _maxMana(mana), _spritePath(spritePath), _deck(std::make_unique<Deck>()){}
 
     void setHealth(int health){
         _health = health;
@@ -50,6 +52,12 @@ public:
     }
     int getMaxMana(){
         return _maxMana;
+    }
+    std::string getCharacterName(){
+        return _name;
+    }
+    QString getCharacterSpritePath(){
+        return _spritePath;
     }
     void restoreMana(){
         _mana = _maxMana;

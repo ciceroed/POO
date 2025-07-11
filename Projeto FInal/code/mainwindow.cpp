@@ -1,5 +1,7 @@
 #include "mainwindow.h"
-#include "carditem.h"
+#include "game.h"
+#include "graphicitem.h"
+#include "charactergraphic.h"
 
 #include <QDebug>
 #include <QGraphicsView>
@@ -13,21 +15,29 @@ MainWindow::MainWindow(QWidget *parent)
     _view->setScene(_scene);
     setCentralWidget(_view);
     setWindowTitle("Castle Conquerors");
-    resize(800, 600);
+    resize(1920, 1080);
 
     _view->setRenderHint(QPainter::Antialiasing);
 
-    CardItem* card1 = new CardItem("://images/cards/bola-de-fogo.png");
-    CardItem* card2 = new CardItem("://images/cards/esgrima-goblin.png");
-    CardItem* card3 = new CardItem("://images/cards/bola-de-fogo.png");
+    CharacterGraphic* playerSprite = new CharacterGraphic(_game.getPlayerViewData());
 
-    _scene->addItem(card1);
-    _scene->addItem(card2);
-    _scene->addItem(card3);
+    _scene->addItem(playerSprite);
 
-    card1->setPos(50, 100);
-    card2->setPos(210,100);
-    card3->setPos(370,100);
+    playerSprite->setPos(25,300);
+
+    // GraphicItem* card1 = new GraphicItem("://images/cards/bola-de-fogo.png");
+    // GraphicItem* card2 = new GraphicItem("://images/cards/esgrima-goblin.png");
+    // GraphicItem* card3 = new GraphicItem("://images/cards/bola-de-fogo.png");
+
+    // _scene->addItem(card1);
+    // _scene->addItem(card2);
+    // _scene->addItem(card3);
+
+    // card1->setPos(50, 100);
+    // card2->setPos(210,100);
+    // card3->setPos(370,100);
+
+    _scene->setSceneRect(0, 0, 1920, 1080);
 
     qDebug() << "Total de itens na cena:" << _scene->items().size();
 

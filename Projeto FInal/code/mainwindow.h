@@ -3,7 +3,8 @@
 
 #include <QMainWindow>
 
-class Game;
+#include "game.h"
+
 class QGraphicsScene;
 class QGraphicsView;
 
@@ -17,7 +18,7 @@ public:
 private:
     QGraphicsView* _view;
     QGraphicsScene* _scene;
-    // Game _game;
+    Game _game;
 
     // void setupUI();
     // void syncSceneWithGameState();
