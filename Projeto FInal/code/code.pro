@@ -11,10 +11,12 @@ CONFIG += c++17
 SOURCES += \
     attackeffect.cpp \
     card.cpp \
+    cardgraphic.cpp \
     character.cpp \
     charactergraphic.cpp \
     deck.cpp \
     game.cpp \
+    gameview.cpp \
     graphicitem.cpp \
     hand.cpp \
     icardeffect.cpp \
@@ -24,10 +26,12 @@ SOURCES += \
 HEADERS += \
     attackeffect.h \
     card.h \
+    cardgraphic.h \
     character.h \
     charactergraphic.h \
     deck.h \
     game.h \
+    gameview.h \
     graphicitem.h \
     hand.h \
     icardeffect.h \

@@ -12,4 +12,11 @@ struct CharacterViewData {
     QString spritePath;
 };
 
+struct CardViewData {
+    int manaCost;
+    std::string title;
+    std::string description;
+    QString spritePath;
+};
+
 #endif // VIEWDATA_H

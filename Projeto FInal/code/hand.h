@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "card.h"
+#include "viewdata.h"
 
 class Hand
 {
@@ -14,7 +15,7 @@ public:
 
     void addCard(std::unique_ptr<Card> card);
     void selectCard(int index, Character& source, Character& target);
-    void printHand();
+    std::vector<CardViewData> getCardsData();
 };
 
 #endif // HAND_H

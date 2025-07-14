@@ -13,6 +13,12 @@ CharacterGraphic::CharacterGraphic(const CharacterViewData& characterData, QGrap
     _maxMana(characterData.maxMana)
 {}
 
+QRectF CharacterGraphic::boundingRect() const{
+    QRectF pixmapRect = _pixmap.rect();
+
+    return QRectF(pixmapRect.x(), pixmapRect.y() - 20, pixmapRect.width(), pixmapRect.height() + 20);
+}
+
 void CharacterGraphic::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
 
     GraphicItem::paint(painter, option, widget);

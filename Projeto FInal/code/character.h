@@ -1,7 +1,6 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-#include <iostream>
 #include <string>
 #include <vector>
 #include <memory>
@@ -10,6 +9,7 @@
 #include "card.h"
 #include "deck.h"
 #include "hand.h"
+#include "viewdata.h"
 
 class Character
 {
@@ -75,7 +75,9 @@ public:
             buyNewCard();
         }
     }
-    void showHand();
+    std::vector<CardViewData> getHandData(){
+        return _hand.getCardsData();
+    }
 
     void addCardToDeck(std::unique_ptr<Card> card){
         _deck->addCard(std::move(card));

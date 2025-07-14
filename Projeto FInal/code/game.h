@@ -16,6 +16,8 @@ public:
     Game();
 
     CharacterViewData getPlayerViewData();
+    std::vector<CardViewData> getPlayerHandData();
+    std::vector<CharacterViewData> getMobsData();
 
 };
 
