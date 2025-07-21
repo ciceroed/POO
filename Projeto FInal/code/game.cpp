@@ -12,25 +12,17 @@ using namespace std;
 
 Game::Game(): _player("Herói", 60, 4, ":/images/characters/character-wizard.png"), _currentState(GameState::PLAYER_TURN) {
 
-    _player.addCardToDeck(make_unique<Card>(2, "Bola de Fogo", "Causa 15 de dano à um alvo", make_unique<AttackEffect>(15), ":/images/cards/bola-de-fogo.png"));
-    _player.addCardToDeck(make_unique<Card>(2, "Bola de Fogo", "Causa 15 de dano à um alvo", make_unique<AttackEffect>(15), ":/images/cards/bola-de-fogo.png"));
-    _player.addCardToDeck(make_unique<Card>(2, "Bola de Fogo", "Causa 15 de dano à um alvo", make_unique<AttackEffect>(15), ":/images/cards/bola-de-fogo.png"));
-    _player.addCardToDeck(make_unique<Card>(2, "Bola de Fogo", "Causa 15 de dano à um alvo", make_unique<AttackEffect>(15), ":/images/cards/bola-de-fogo.png"));
-    _player.addCardToDeck(make_unique<Card>(2, "Bola de Fogo", "Causa 15 de dano à um alvo", make_unique<AttackEffect>(15), ":/images/cards/bola-de-fogo.png"));
-    _player.addCardToDeck(make_unique<Card>(2, "Bola de Fogo", "Causa 15 de dano à um alvo", make_unique<AttackEffect>(15), ":/images/cards/bola-de-fogo.png"));
-    _player.addCardToDeck(make_unique<Card>(2, "Bola de Fogo", "Causa 15 de dano à um alvo", make_unique<AttackEffect>(15), ":/images/cards/bola-de-fogo.png"));
-    _player.addCardToDeck(make_unique<Card>(2, "Bola de Fogo", "Causa 15 de dano à um alvo", make_unique<AttackEffect>(15), ":/images/cards/bola-de-fogo.png"));
-    _player.addCardToDeck(make_unique<Card>(2, "Bola de Fogo", "Causa 15 de dano à um alvo", make_unique<AttackEffect>(15), ":/images/cards/bola-de-fogo.png"));
-    _player.addCardToDeck(make_unique<Card>(2, "Bola de Fogo", "Causa 15 de dano à um alvo", make_unique<AttackEffect>(15), ":/images/cards/bola-de-fogo.png"));
+    for(int i = 0; i < 30; i++){
+        _player.addCardToDeck(make_unique<Card>(2, "Bola de Fogo", "Causa 15 de dano à um alvo", make_unique<AttackEffect>(15), ":/images/cards/bola-de-fogo.png"));
+    }
 
     _mobs.push_back(make_unique<Character>("Goblin", 60, 2, ":/images/characters/character-goblin.png"));
     _mobs.push_back(make_unique<Character>("Goblin", 60, 2, ":/images/characters/character-goblin.png"));
 
     for (const auto& mob_ptr : _mobs) {
-        mob_ptr->addCardToDeck(make_unique<Card>(1, "Esgrima Goblin", "Causa 5 de dano", make_unique<AttackEffect>(5), ":/images/cards/esgrima-goblin.png"));
-        mob_ptr->addCardToDeck(make_unique<Card>(1, "Esgrima Goblin", "Causa 5 de dano", make_unique<AttackEffect>(5), ":/images/cards/esgrima-goblin.png"));
-        mob_ptr->addCardToDeck(make_unique<Card>(1, "Esgrima Goblin", "Causa 5 de dano", make_unique<AttackEffect>(5), ":/images/cards/esgrima-goblin.png"));
-        mob_ptr->addCardToDeck(make_unique<Card>(1, "Esgrima Goblin", "Causa 5 de dano", make_unique<AttackEffect>(5), ":/images/cards/esgrima-goblin.png"));
+        for(int i = 0; i < 30; i++){
+            mob_ptr->addCardToDeck(make_unique<Card>(1, "Esgrima Goblin", "Causa 5 de dano", make_unique<AttackEffect>(5), ":/images/cards/esgrima-goblin.png"));
+        }
     }
 
     _player.setInitialHand();

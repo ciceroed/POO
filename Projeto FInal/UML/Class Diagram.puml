@@ -1,80 +1,184 @@
-@startuml class-diagram
+@startuml class-diagram-reviewed
 
 skinparam ClassAttributeIconSize 0
+skinparam linetype ortho
 
-' Classes principais
+' ================= Lógica do Jogo (Model) =================
 
-class Game{
-    - player: Character
-    - mobs: vector<Character>
-    + gameStart()
-    + endTurn()
+Enum GameState {
+    PLAYER_TURN
+    ENEMY_TURN
+    PLAYER_VICTORY
+    PLAYER_DEFEAT
+}
+
+class Game {
+    - _player: Character
+    - _mobs: vector<unique_ptr<Character>>
+    - _currentState: GameState
+    + getPlayerViewData(): CharacterViewData
+    + getPlayerHandData(): vector<CardViewData>
+    + getMobsData(): vector<CharacterViewData>
+    + getMobHandData(mobId: int): vector<CardViewData>
+    + getGameState(): GameState
+    + startPlayerTurn(): void
+    + startMobsTurn(): void
+    + processNextMobAction(mobId: int): optional<CardViewData>
+    + playCard(cardId: int, targetId: int, sourceId: int): void
+    + cleanupDeadMobs(): void
+    + checkForGameOver(): void
+    - findCharacterById(characterId: int): Character*
 }
 
 class Character {
-    - name: string
-    - health: int
-    - mana: int
-    - deck: Deck
-    - hand: vector<Card*>
-    + setHealth(hp: int): void
-    + setMana(mana: int): void
+    - _id: int
+    - _name: string
+    - _health: int
+    - _maxHealth: int
+    - _mana: int
+    - _maxMana: int
+    - _hand: Hand
+    ' Sugestão: Character possui o Deck
+    - _deck: unique_ptr<Deck>
+    - _spritePath: QString
+    ' Membros estáticos são sublinhados
+    - {static} _nextId: int
     + getHealth(): int
     + getMana(): int
-    + getHand(): vector<Card*>
-    + drawCard(): void
-    + setInitialHand(): void
-    + playCard(card: Card*, target: Character*): void
+    + getCharacterId(): int
+    + getCharacterName(): string
+    + getHandData(): vector<CardViewData>
+    ' Sugestão: playCard em Character delega para um método playCard na Hand
+    + playCard(cardId: int, target: Character&): void
+    + spendMana(manaSpent: int): void
+    + takeDamage(damage: int): void
+    + buyNewCard(): void
+    + cardRequiresTarget(cardId: int): bool
 }
 
+class Hand {
+    - _cards: vector<unique_ptr<Card>>
+    - _maxCards: const size_t
+    + addCard(card: unique_ptr<Card>): void
+    ' Sugestão: Refatorado para um método que centraliza a lógica
+    + playCard(cardId: int, source: Character&, target: Character&): bool
+    + getCardsData(): vector<CardViewData>
+    + cardRequiresTarget(cardId: int): bool
+}
 
-class Deck{
-    - cards: vector<Card*>
-
-    + draw(): Card*
-    + addCard(card: Card*): void
-    + removeCard(card: Card*): void
+class Deck {
+    ' CRÍTICO: Usar unique_ptr para gerenciar a memória
+    - _cards: vector<unique_ptr<Card>>
+    + draw(): unique_ptr<Card>
+    + addCard(card: unique_ptr<Card>): void
     + shuffle(): void
 }
 
-class Card{
-    - manaCost: int
-    - title: string
-    - description: string
-    - effect: ICardEffect *
-
+class Card {
+    - _id: int
+    - _manaCost: int
+    - _title: string
+    - _description: string
+    ' Composição é mais preciso aqui
+    - _effect: unique_ptr<ICardEffect>
+    - _spritePath: QString
+    - {static} _nextId: int
+    + getCardId(): int
     + getManaCost(): int
-    + setManaCost(cost: int): void
-    + getDescription(): string
-    + setDescription(description: string): void
     + getTitle(): string
-    + setTitle(title: string): void
-    + setEffect(effect: ICardEffect): void
-    + applyEffect(source: Character*, target: Character*): void
+    + getSpritePath(): QString
+    + cardEffect(source: Character&, target: Character&): void
+    + requiresTarget(): bool
 }
-
-' Interfaces e classes de efeitos de cartas
 
 interface ICardEffect <<Strategy>> {
-    + applyEffect(source: Character*, target: Character*): void
+    + {abstract} applyEffect(source: Character&, target: Character&): void
+    + {abstract} requiresTarget(): bool
 }
 
-class AttackEffect{
-    - damageAmount: int
-    + applyEffect(source: Character* , target: Character*): void
+class AttackEffect {
+    - _damageAmount: int
+    + applyEffect(source: Character&, target: Character&): void
+    + requiresTarget(): bool
 }
 
-class HealEffect {
-    - healAmount: int
-    + applyEffect(source: Character* , target: Character*): void
+' ================= Interface Gráfica (View) =================
+
+class MainWindow {
+    - _game: Game
+    - _view: GameView*
+    - _scene: QGraphicsScene*
+    - _selectedCardId: int
+    - _currentEnemyIndex: int
+    - _statusTextItem: QGraphicsTextItem*
+    - _endTurnButton: EndTurnButton*
+    - _playerSprite: CharacterGraphic*
+    - _mobSprites: QList<CharacterGraphic*>
+    - _handCardSprites: QList<CardGraphic*>
+    # resizeEvent(event: QResizeEvent*): void
+    - updateLayout(): void
+    - syncSceneWithGameState(): void
+    - showTemporaryCard(cardData: const CardViewData&, durationMs: int): void
+    <<slot>>
+    + onCardClicked(cardId: int): void
+    + onCharacterClicked(targetId: int): void
+    + onEndTurnButtonClicked(): void
+    + processNextEnemyAction(): void
+}
+class GameView {
+    - _backgroundPixmap: QPixmap
+    # drawBackground(painter: QPainter*, rect: const QRectF&): void
+}
+class GraphicItem {
+    # _pixmap: QPixmap
+    # _isHovered: bool
+    # hoverEnterEvent(event: QGraphicsSceneHoverEvent*): void
+    # hoverLeaveEvent(event: QGraphicsSceneHoverEvent*): void
+    # mousePressEvent(event: QGraphicsSceneMouseEvent*): void
+    + {abstract} paint(painter: QPainter*, option: const QStyleOptionGraphicsItem*, widget: QWidget*): void
+    + {abstract} boundingRect(): QRectF
+}
+class CharacterGraphic {
+    - _id: int
+    - _currentHealth: int
+    - _maxHealth: int
+    <<signal>>
+    + characterClicked(id: int): void
+    + getCharacterId(): int
 }
 
-' Relacionamentos
-Game "1" -- "1" Character : controls >
-Game "1" -- "*" Character: fight against >
-Character -- Deck : Owns >
-Deck o-- "*" Card : Manage >
-Card --> ICardEffect : uses >
+class CardGraphic {
+    - _id: int
+    <<signal>>
+    + cardClicked(cardId: int): void
+}
+class EndTurnButton {
+    <<signal>>
+    + clicked(): void
+}
+
+' ================= Relacionamentos =================
+' --- Relações de Posse (Composição) ---
+MainWindow "1" *-- "1" Game
+MainWindow "1" *-- "1" GameView
+Character "1" *-- "1" Hand
+Character "1" *-- "1" Deck
+Hand "1" *-- "0..*" Card
+Deck "1" *-- "0..*" Card
+Card "1" *-- "1" ICardEffect
+
+' --- Relações de Associação ---
+Game "1" -- "1" Character : player >
+Game "1" -- "0..*" Character : mobs >
+Game ..> GameState : uses
+
+MainWindow ..> CharacterGraphic : creates & manages
+MainWindow ..> CardGraphic : creates & manages
+MainWindow ..> EndTurnButton : creates & manages
+
+' --- Relações de Herança/Implementação ---
+CharacterGraphic ..|> GraphicItem
+CardGraphic ..|> GraphicItem
+EndTurnButton ..|> GraphicItem
 AttackEffect ..|> ICardEffect
-HealEffect ..|> ICardEffect
 @enduml

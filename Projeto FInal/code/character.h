@@ -23,12 +23,10 @@ private:
     int _maxMana;
     QString _spritePath;
     Hand _hand;
-    std::unique_ptr<Deck> _deck; // Public atribute
+    std::unique_ptr<Deck> _deck;
 
     static int _nextId;
 public:
-
-
 
     Character(std::string name, int health, int mana, QString spritePath):
         _name(name), _health(health), _maxHealth(health), _mana(mana), _maxMana(mana), _spritePath(spritePath), _deck(std::make_unique<Deck>()){
