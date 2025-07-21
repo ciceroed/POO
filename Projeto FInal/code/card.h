@@ -12,11 +12,14 @@ class Character;
 class Card
 {
 private:
+    int _id;
     int _manaCost;
     std::string _title;
     std::string _description;
     std::unique_ptr<ICardEffect> _effect;
     QString _spritePath;
+
+    static int _nextId;
 
 public:
     Card(int manaCost, std::string title, std::string description, std::unique_ptr<ICardEffect> effect, QString spritePath):
@@ -24,8 +27,14 @@ public:
         _title(title),
         _description(description),
         _effect(std::move(effect)),
-        _spritePath(spritePath){}
+        _spritePath(spritePath){
 
+        _id = _nextId++;
+    }
+
+    int getCardId(){
+        return _id;
+    }
     int getManaCost(){
         return _manaCost;
     }
@@ -40,6 +49,9 @@ public:
     }
     void cardEffect(Character& source, Character& target){
         _effect->applyEffect(source, target);
+    }
+    bool cardRequiresTarget(){
+        return _effect->requiresTarget();
     }
 };
 

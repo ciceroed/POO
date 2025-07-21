@@ -5,5 +5,6 @@
         <file>images/characters/character-goblin.png</file>
         <file>images/characters/character-wizard.png</file>
         <file>images/backgrounds/goblin-cave.png</file>
+        <file>images/assets/fim-de-turno.png</file>
     </qresource>
 </RCC>

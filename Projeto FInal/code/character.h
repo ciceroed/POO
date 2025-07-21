@@ -5,6 +5,7 @@
 #include <vector>
 #include <memory>
 #include <QString>
+#include <QDebug>
 
 #include "card.h"
 #include "deck.h"
@@ -14,6 +15,7 @@
 class Character
 {
 private:
+    int _id;
     std::string _name;
     int _health;
     int _maxHealth;
@@ -22,12 +24,16 @@ private:
     QString _spritePath;
     Hand _hand;
     std::unique_ptr<Deck> _deck; // Public atribute
+
+    static int _nextId;
 public:
 
 
 
     Character(std::string name, int health, int mana, QString spritePath):
-        _name(name), _health(health), _maxHealth(health), _mana(mana), _maxMana(mana), _spritePath(spritePath), _deck(std::make_unique<Deck>()){}
+        _name(name), _health(health), _maxHealth(health), _mana(mana), _maxMana(mana), _spritePath(spritePath), _deck(std::make_unique<Deck>()){
+        _id = ++_nextId;
+    }
 
     void setHealth(int health){
         _health = health;
@@ -59,6 +65,9 @@ public:
     QString getCharacterSpritePath(){
         return _spritePath;
     }
+    int getCharacterId(){
+        return _id;
+    }
     void restoreMana(){
         _mana = _maxMana;
     }
@@ -69,6 +78,7 @@ public:
         if(cardToDraw){
             _hand.addCard(std::move(cardToDraw));
         }
+
     }
     void setInitialHand(){
         for(int i = 5; i > 0; i--){
@@ -81,6 +91,23 @@ public:
 
     void addCardToDeck(std::unique_ptr<Card> card){
         _deck->addCard(std::move(card));
+    }
+
+    void playCard(int cardId, Character& target){
+
+        bool success = _hand.activateCard(cardId, *this, target);
+
+        if(!success){
+            qDebug() << "A tentativa de jogar a carta falhou.";
+        }
+    }
+
+    void spendMana(int manaSpent){
+        _mana -= manaSpent;
+    }
+
+    bool cardRequiresTarget(int cardId){
+        return _hand.cardRequiresTarget(cardId);
     }
 };
 

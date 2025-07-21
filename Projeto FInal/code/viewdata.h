@@ -4,6 +4,7 @@
 #include <QString>
 
 struct CharacterViewData {
+    int id;
     std::string name;
     int currentHealth;
     int maxHealth;
@@ -13,6 +14,7 @@ struct CharacterViewData {
 };
 
 struct CardViewData {
+    int id;
     int manaCost;
     std::string title;
     std::string description;

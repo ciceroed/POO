@@ -14,7 +14,19 @@ public:
 
     QRectF boundingRect() const override;
 
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+
+    int getCharacterId(){
+        return _id;
+    }
+    std::string getCharacterName(){
+        return _name;
+    }
+
+signals:
+    void characterClicked(int id);
 private:
+    int _id;
     std::string _name;
     int _currentHealth;
     int _maxHealth;

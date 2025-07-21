@@ -45,3 +45,7 @@ void GraphicItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
     QGraphicsObject::hoverLeaveEvent(event);
 }
 
+void GraphicItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
+
+    QGraphicsObject::mousePressEvent(event);
+}

@@ -3,6 +3,7 @@
 
 CardGraphic::CardGraphic(const CardViewData& cardData, QGraphicsItem* parent):
     GraphicItem(cardData.spritePath, parent),
+    _id(cardData.id),
     _manaCost(cardData.manaCost),
     _title(cardData.title),
     _description(cardData.description)
@@ -10,4 +11,10 @@ CardGraphic::CardGraphic(const CardViewData& cardData, QGraphicsItem* parent):
 
 void CardGraphic::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
     GraphicItem::paint(painter, option, widget);
+}
+
+void CardGraphic::mousePressEvent(QGraphicsSceneMouseEvent *event){
+
+    emit(cardClicked(_id));
+    GraphicItem::mousePressEvent(event);
 }

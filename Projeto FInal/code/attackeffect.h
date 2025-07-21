@@ -14,6 +14,10 @@ public:
     void applyEffect(Character& source, Character& target) const override{
         target.setHealth(target.getHealth() - _damage);
     }
+
+    bool requiresTarget() const override{
+        return true;
+    }
 };
 
 #endif // ATTACKEFFECT_H

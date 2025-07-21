@@ -7,6 +7,7 @@ class ICardEffect
 {
 public:
     virtual void applyEffect(Character& source, Character& target) const = 0;
+    virtual bool requiresTarget() const = 0;
 };
 
 #endif // ICARDEFFECT_H

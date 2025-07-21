@@ -13,7 +13,14 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
+signals:
+    void cardClicked(int cardId);
+
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+
 private:
+    int _id;
     int _manaCost;
     std::string _title;
     std::string _description;
